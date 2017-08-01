@@ -1,7 +1,3 @@
-import java.util.HashSet;
-import java.util.HashSet;
-import java.util.LinkedList;
-
 /**
  * File: e:\code\leetCode\37-SudokuSolver\Solution.java
  * Project: e:\code\leetCode
@@ -12,7 +8,10 @@ import java.util.LinkedList;
  * Modified By: JX
  * -----
  * Copyright (c) 2017 SYSU-SDCS-RJX
- * 
+ *
+ *实验中使用JAVA会超时
+ * 改为C++即可
+ *
  * 学习使用
  * github地址:https://github.com/jiaxin96
  */
@@ -22,80 +21,54 @@ public class Solution {
     public static void main(String[] args) {
         
     }
+    public boolean isOk = false;
     public void solveSudoku(char[][] board) {
-        LinkedList<cor> poss = getEmptyPos(board);
-        for(cor p : poss) {
-            dfs(p.getX(), p.getY(),board);
-        }
+        dfs(1,board);
     }
 
-    public LinkedList<cor> getEmptyPos(char[][] board) {
-        LinkedList<cor> ans = new LinkedList<>();
-        for (int i = 0; i < 8; ++i) {
-            for (int j = 0; j < 8; ++j) {
-                if (board[i][j] == '.') {
-                    ans.add(new cor(i,j));
-                }
-            }
-        }
-        return ans;
-    }
-    public HashSet<Integer> getPutNums(int r, int c, char[][]board) {
-        HashSet<Integer> ans_complement = new HashSet<>();
+    public boolean canPut(int r, int c, int num, char[][] board) {
+        char aim = String.valueOf(num).charAt(0);
         //横向
         for (int i = 0; i < 8; ++i) {
-            if (board[r][i] != '.') {
-                ans_complement.add(board[r][i]-'0');
+            if (board[r][i] == aim) {
+                return false;
             }
         }
         //纵向
         for (int i = 0; i < 8; ++i) {
-            if (board[i][c] != '.') {
-                ans_complement.add(board[i][c]-'0');
+            if (board[i][c] == aim) {
+                return false;
             }
         }
         // 方块
         for(int i = 3*(r/3); i < 4*(r/3); ++i) {
             for(int j = 3*(r/3); j < 4*(r/3); ++j) {
-                if (board[i][j] != '.') {
-                    ans_complement.add(board[i][j] - '0');
+                if (board[i][j] == aim) {
+                return false;
                 }
             }
         }
-        HashSet<Integer> ans = new HashSet<>();
-        for (int i = 0; i < 8; ++i) {
-            ans.add(i+1);
-        }
-        
-        ans.removeAll(ans_complement);
-        return ans;
+        return true;
     }
     public void dfs(int count, char[][] board) {
-        if (count > 81) return;
+        if (count > 81) {
+            isOk = true;
+            return;
+        }
         int r = (count-1) / 9;
         int c = count - 9*r - 1;
+        if (board[r][c] == '.') {
+            for (int i = 1; i <= 9; ++i) {
+                if (canPut(r , c, i, board)) {
+                    board[r][c] = String.valueOf(i).charAt(0);
+                    dfs(count+1, board);
+                    if (isOk) return;
+                    board[r][c] = '.';
+                }
+            }
+        } else {
+            dfs(count+1, board);            
+        }
         
-        
-    }
-
-    class cor {
-        int x;
-        int y;
-        public cor(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-        public int getX() {
-            return x;
-        }
-        public int getY() {
-            return y;
-        }
-        public void setX(int x) {
-            this.x = x;
-        }
-        public void setY(int y) {
-            this.y = y;
-        }
     }
 }
