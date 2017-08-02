@@ -4,7 +4,7 @@
  * Created Date: Monday, July 31st 2017, 11:34:45 pm
  * Author: JX
  * -----
- * Last Modified: Tue Aug 01 2017
+ * Last Modified: Wed Aug 02 2017
  * Modified By: JX
  * -----
  * Copyright (c) 2017 SYSU-SDCS-RJX
@@ -50,6 +50,7 @@ public class Solution {
         }
         return true;
     }
+    
     public boolean dfs(int count, char[][] board) {
         if (count > 81) {
             return true;
