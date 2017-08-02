@@ -50,10 +50,9 @@ public class Solution {
         }
         return true;
     }
-    public void dfs(int count, char[][] board) {
+    public boolean dfs(int count, char[][] board) {
         if (count > 81) {
-            isOk = true;
-            return;
+            return true;
         }
         int r = (count-1) / 9;
         int c = count - 9*r - 1;
@@ -61,9 +60,11 @@ public class Solution {
             for (int i = 1; i <= 9; ++i) {
                 if (canPut(r , c, i, board)) {
                     board[r][c] = String.valueOf(i).charAt(0);
-                    dfs(count+1, board);
-                    if (isOk) return;
-                    board[r][c] = '.';
+                    if (dfs(count+1, board)) {
+                        return true;
+                    } else {
+                        board[r][c] = '.';
+                    }
                 }
             }
         } else {
