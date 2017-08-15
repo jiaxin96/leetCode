@@ -1,5 +1,6 @@
 *.class
 *.out
+*.exe
 .vscode
 .idea
 leetCode.iml
