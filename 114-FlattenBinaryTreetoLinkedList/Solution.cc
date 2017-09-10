@@ -45,6 +45,5 @@ public:
             it = it->right;
         }
 
-        return root;
     }
 };
