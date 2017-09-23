@@ -27,9 +27,9 @@ public:
         }
         int ans = 0;
         for (int i = 0; i < 32; ++i) {
-            count[i] %= 3;
+            count[31-i] %= 3;
             ans <<= 1;
-            ans |= count[i];
+            ans |= count[31-i];
         }
         return ans;
 
