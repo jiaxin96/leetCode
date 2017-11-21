@@ -19,11 +19,12 @@ class Solution
     int hIndex(vector<int> &citations)
     {
         sort(citations.begin(), citations.end());
-        for (int i = citations.size()-1; i >= 0; --i) {
+        for (int i = 0; i < citations.size(); ++i) {
             int lef = citations.size() - i;
             if (citations[i] >= lef)
             {
                 return lef;
+
             }
         }
         return 0;
