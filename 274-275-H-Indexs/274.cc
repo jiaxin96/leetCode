@@ -4,7 +4,7 @@
  * Created Date: Monday, November 20th 2017, 11:26:04 am
  * Author: JX
  * -----
- * Last Modified: Mon Nov 20 2017
+ * Last Modified: Wed Nov 29 2017
  * Modified By: JX
  * -----
  * Copyright (c) 2017 SYSU-SDCS-RJX
@@ -19,12 +19,12 @@ class Solution
     int hIndex(vector<int> &citations)
     {
         sort(citations.begin(), citations.end());
-        for (int i = 0; i < citations.size(); ++i)
-        {
+        for (int i = 0; i < citations.size(); ++i) {
             int lef = citations.size() - i;
             if (citations[i] >= lef)
             {
                 return lef;
+
             }
         }
         return 0;
