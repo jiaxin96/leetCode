@@ -19,8 +19,22 @@ class Solution
     string getHint(string secret, string guess)
     {
         vector<int> dit(10,0);
+        int A = 0, B = 0;
         for (int i = 0; i < secret.length(); ++i) {
-            
+            dit[secret[i]-'0']++;
+            if (guess[i] == secret[i]) {
+                B++;
+                dit[guess[i]-'0']--;
+            }
         }
+        for (int i = 0; i < guess.length(); ++i) {
+            if (guess[i] == secret[i]) {
+                continue;
+            } else if (dit[guess[i]-'0'] >= 1) {
+                dit[guess[i]-'0']--;
+                A++;
+            }
+        }
+        return to_string(B)+"A"+to_string(A)+"B";
     }
 };
